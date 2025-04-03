@@ -1,0 +1,54 @@
+# Enable Rewrite Engine
+RewriteEngine On
+
+# Ensure only GET and POST methods are allowed
+<Limit GET POST>
+    Allow from all
+</Limit>
+
+# Redirect to HTTPS if not already secure
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:CF-Visitor} !{"scheme":"https"}
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Remove directory structure from URL for files in /pages/info/
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/pages/info/$1.php -f
+RewriteRule ^(.+)$ pages/info/$1.php [L]
+
+# Hide .php extensions globally
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [L,QSA]
+
+# Remove directory structure from URL for files in /pages/
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/pages/$1.php -f
+RewriteRule ^(.+)$ pages/$1.php [L]
+
+# Remove directory structure from URL for all other files in root.
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/$1.php -f
+RewriteRule ^(.+)$ $1.php [L]
+
+# Обработка URL-структуры категорий
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^category/([^/]+)/?$ pages/category.php?category1=$1 [L,QSA]
+RewriteRule ^category/([^/]+)/([^/]+)/?$ pages/category.php?category1=$1&category2=$2 [L,QSA]
+RewriteRule ^category/([^/]+)/([^/]+)/([^/]+)/?$ pages/category.php?category1=$1&category2=$2&category3=$3 [L,QSA]
+
+# Редирект /pages/certificate.html на /certificate (с параметром i или без)
+RewriteCond %{THE_REQUEST} \ /pages/certificate\.html
+RewriteRule ^ /certificate [R=301,L]
+
+# Обработка /certificate
+RewriteRule ^certificate$ pages/certificate.html [L]
+
+# Redirect root to main page
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^$ main [L]

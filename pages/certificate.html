@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание сертификата</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        @media print {
+            body {
+                background: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            .preview-container {
+                margin: 0 !important;
+            }
+            
+            .preview {
+                box-shadow: none !important;
+                margin: 0 !important;
+                width: 297mm !important;
+                height: 210mm !important;
+                background-image: none !important;
+            }
+        }
+        
+        @font-face {
+            font-family: 'Times New Roman';
+            src: local('Times New Roman');
+        }
+        
+        @font-face {
+            font-family: 'Arial';
+            src: local('Arial');
+        }
+        
+        .certificate-title {
+            font-family: 'Times New Roman', serif;
+            color: #847840;
+        }
+        
+        .subtitle {
+            font-family: 'Times New Roman', serif;
+            color: #847840;
+        }
+        
+        .normal-text {
+            font-family: 'Times New Roman', serif;
+        }
+        
+        .person-name {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+        }
+        
+        .red-text {
+            font-family: 'Times New Roman', serif;
+            color: #847840;
+        }
+        
+        .form-input {
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-5 bg-white rounded-lg shadow-md no-print">
+        <h1 class="text-2xl font-bold mb-5 text-center">Создание сертификата</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="p-4 border rounded-lg">
+                <h2 class="text-xl font-bold mb-4">Левая колонка</h2>
+                
+                <div class="mb-3">
+                    <label for="organization" class="block font-bold mb-1">Организация:</label>
+                    <textarea id="organization" rows="5" class="w-full p-2 border rounded form-input">Общество с ограниченной ответственностью
+«МОТИВ»</textarea>
+                </div>
+                
+
+                
+
+                
+                
+                <div class="mb-3 items-center">
+                    <label for="reg-number" class="block font-bold mb-1">Регистрационный номер:</label>
+                    <input type="text" id="reg-number" value="СП 0000020" class="w-full p-2 border rounded form-input">
+                </div>
+                
+
+                
+                <div class="mb-3">
+                    <label for="date" class="block font-bold mb-1">Дата выдачи:</label>
+                    <input type="text" id="date" value="23 марта 2025 года" class="w-full p-2 border rounded form-input">
+                </div>
+                
+
+                
+                <div class="mb-3">
+                    <label for="city" class="block font-bold mb-1">Город:</label>
+                    <input type="text" id="city" value="Ангарск" class="w-full p-2 border rounded form-input">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="certificate-number" class="block font-bold mb-1">Номер свидетельства:</label>
+                    <input type="text" id="certificate-number" value="3324641467975" class="w-full p-2 border rounded form-input">
+                </div>
+            </div>
+            
+            <div class="p-4 border rounded-lg">
+                <h2 class="text-xl font-bold mb-4">Правая колонка</h2>
+                
+
+                
+                <div class="mb-3">
+                    <label for="person-fullname" class="block font-bold mb-1">ФИО полностью:</label>
+                    <input type="text" id="person-fullname" value="Паномарёва Алина Игоревна" class="w-full p-2 border rounded form-input">
+                </div>
+                
+
+                
+                <div class="mb-3">
+                    <label for="profession-prefix" class="block font-bold mb-1">Префикс профессии:</label>
+                    <input type="text" id="profession-prefix" value="по профессии" class="w-full p-2 border rounded form-input">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="profession" class="block font-bold mb-1">Профессия:</label>
+                    <textarea id="profession" rows="3" class="w-full p-2 border rounded form-input">Специалист по маникюру
+(в объеме 166 ак.ч.)</textarea>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="commission-text" class="block font-bold mb-1">Текст комиссии:</label>
+                    <textarea id="commission-text" rows="3" class="w-full p-2 border rounded form-input">Решением аттестационной комиссии
+от 23 марта 2025 года
+присвоена квалификация</textarea>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="qualification-title" class="block font-bold mb-1">Название квалификации:</label>
+                    <input type="text" id="qualification-title" value="Специалист по маникюру" class="w-full p-2 border rounded form-input">
+                </div>
+                
+
+            </div>
+        </div>
+        
+        <div class="text-center mt-4 space-x-4">
+            <button id="generate" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Предпросмотр</button>
+            <button id="print-btn" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Печать</button>
+        </div>
+    </div>
+    
+    <div class="preview-container mt-8 mb-8 flex justify-center ">
+        <div class="px-20 preview w-[1050px] h-[731px] relative overflow-hidden rounded-lg shadow-xl" style="background-image: url('https://www.viacademia.ru/components/com_jshopping/files/img_products/full_svr-19-oborot1.jpg'); background-size: cover; background-repeat: no-repeat;">
+            <div class="grid grid-cols-2 h-full">
+                <div class=" py-10 flex flex-col items-center ">
+                    <div id="preview-country" class="text-center normal-text text-xs mt-12 opacity-0">
+                        <!-- Hidden country display -->
+                    </div>
+                    
+                    <div id="preview-organization" class="text-center normal-text text-xl mt-8 pl-4 pr-8 mb-52 leading-tight"></div>
+                    
+                    
+
+                    
+                    <div id="preview-certificate-number" class="normal-text text-2xl mt-9 pl-4 pr-8"></div>
+                    
+                    
+                    <div class="w-full mt-16  text-center items-center">
+                        <div class="flex flex-col text-center w-full">
+
+                            <div id="preview-reg-number" class="normal-text text-xl w-full  pl-3 pr-7"></div>
+                            
+                            <div id="preview-date" class="normal-text text-xl w-full  py-10  pl-3 pr-7"></div>
+                            
+                            <div id="preview-city" class="normal-text text-xl w-full  py-4 pl-3 pr-7"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-10 flex flex-col">
+                    
+                    
+                    <div id="preview-person-fullname" class="text-center person-name text-xl font-bold mt-20"></div>
+                    
+
+                    <div id="preview-profession-prefix" class="text-center normal-text text-l mt-20"></div>
+                    
+                    <div id="preview-profession" class="text-center normal-text text-l font-medium leading-snug"></div>
+                    
+                    <div id="preview-commission-text" class="text-center normal-text text-l mt-6"></div>
+                    
+                    <div id="preview-qualification-title" class="text-center normal-text text-xl font-bold mt-4"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Function to update preview
+        function updatePreview() {
+            // Left column
+            document.getElementById('preview-organization').innerHTML = document.getElementById('organization').value.replace(/\n/g, '<br>');
+
+            
+            document.getElementById('preview-reg-number').textContent = document.getElementById('reg-number').value;
+
+            document.getElementById('preview-date').textContent = document.getElementById('date').value;
+
+            document.getElementById('preview-city').textContent = document.getElementById('city').value;
+            document.getElementById('preview-certificate-number').textContent = document.getElementById('certificate-number').value;
+            
+            // Right column
+
+            document.getElementById('preview-person-fullname').textContent = document.getElementById('person-fullname').value;
+
+            document.getElementById('preview-profession-prefix').textContent = document.getElementById('profession-prefix').value;
+            document.getElementById('preview-profession').innerHTML = document.getElementById('profession').value.replace(/\n/g, '<br>');
+            document.getElementById('preview-commission-text').innerHTML = document.getElementById('commission-text').value.replace(/\n/g, '<br>');
+            document.getElementById('preview-qualification-title').textContent = document.getElementById('qualification-title').value;
+
+        }
+        
+        // Initial update
+        updatePreview();
+        
+        // Update preview when clicking the button
+        document.getElementById('generate').addEventListener('click', updatePreview);
+        
+        // Update preview when any input changes
+        const inputs = document.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('input', updatePreview);
+        });
+        
+        // Print functionality
+        document.getElementById('print-btn').addEventListener('click', function() {
+            window.print();
+        });
+    </script>
+</body>
+</html>

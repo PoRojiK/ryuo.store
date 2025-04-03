@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Категории</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+  <!-- Categories Section -->
+  <div class="px-4 py-8">
+    <h1 class="text-2xl font-bold mb-6">Категории</h1>
+    <div class="grid grid-cols-4 gap-4">
+      <!-- Men's Clothing -->
+      <div class="relative col-span-1 h-40 sm:h-60 md:h-100 bg-gray-100 overflow-hidden rounded-lg shadow-2xl">
+        <img src="./images/main_categories/sweetshots.jpg" alt="Men's Clothing"
+          class="absolute inset-0 w-full h-full object-cover">
+      </div>
+      <!-- Women's Clothing -->
+      <div class="relative col-span-2 h-40 sm:h-60 md:h-100 bg-gray-100 overflow-hidden rounded-lg shadow-2xl">
+        <img src="./images/main_categories/hoodie.jpg" alt="Women's Clothing"
+          class="absolute inset-0 w-full h-full object-cover">
+      </div>
+      <!-- Kids' Clothing -->
+      <div class="relative col-span-1 h-40 sm:h-60 md:h-100 bg-gray-100 overflow-hidden rounded-lg shadow-2xl">
+        <img src="./images/main_categories/bombers.jpg" alt="Kids' Clothing"
+          class="absolute inset-0 w-full h-full object-cover">
+      </div>
+      <!-- Shoes -->
+      <div class="relative col-span-2 h-40 sm:h-60 md:h-100 bg-gray-100 overflow-hidden rounded-lg shadow-2xl">
+        <img src="./images/main_categories/shirt.jpg" alt="Shoes"
+          class="absolute inset-0 w-full h-full object-cover">
+      </div>
+      <!-- Accessories -->
+      <div class="relative col-span-2 h-40 sm:h-60 md:h-100 bg-gray-100 overflow-hidden rounded-lg shadow-2xl">
+        <img src="./images/main_categories/t-shirts.jpg" alt="Accessories"
+          class="absolute inset-0 w-full h-full object-cover">
+      </div>
+    </div>
+  </div>
+
+  <!-- Limited Edition Section -->
+  <div class="px-4 py-8 bg-white shadow-md">
+    <h2 class="text-xl font-semibold mb-4">Лимитированные товары</h2>
+    <div class="flex overflow-x-auto space-x-4 scrollbar-thin scrollbar-thumb-gray-300">
+      <!-- Placeholder cards -->
+      <div class="min-w-[200px] bg-gray-100 rounded-lg shadow-md p-4">
+        <img src="/path/to/product1.jpg" alt="Product 1" class="w-full h-40 object-cover rounded-md mb-2">
+        <h3 class="text-lg font-medium">Product 1</h3>
+        <p class="text-gray-600">Цена: 999 ₽</p>
+      </div>
+      <div class="min-w-[200px] bg-gray-100 rounded-lg shadow-md p-4">
+        <img src="/path/to/product2.jpg" alt="Product 2" class="w-full h-40 object-cover rounded-md mb-2">
+        <h3 class="text-lg font-medium">Product 2</h3>
+        <p class="text-gray-600">Цена: 1,299 ₽</p>
+      </div>
+      <!-- Cards will be dynamically added here -->
+      <div id="limited-items-container" class="flex space-x-4"></div>
+    </div>
+  </div>
+
+  <script>
+    // Mock function to simulate fetching products from a database
+    async function fetchLimitedItems() {
+      return [
+        { id: 1, name: 'Limited Product 1', price: '1,499 ₽', image: '/path/to/limited1.jpg' },
+        { id: 2, name: 'Limited Product 2', price: '2,199 ₽', image: '/path/to/limited2.jpg' },
+        { id: 3, name: 'Limited Product 3', price: '899 ₽', image: '/path/to/limited3.jpg' },
+      ];
+    }
+
+    // Render limited items dynamically
+    async function renderLimitedItems() {
+      const container = document.getElementById('limited-items-container');
+      const items = await fetchLimitedItems();
+
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'min-w-[200px] bg-gray-100 rounded-lg shadow-md p-4';
+
+        card.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" class="w-full h-40 object-cover rounded-md mb-2">
+          <h3 class="text-lg font-medium">${item.name}</h3>
+          <p class="text-gray-600">Цена: ${item.price}</p>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    // Call the function to render limited items
+    renderLimitedItems();
+  </script>
+</body>
+
+</html>
